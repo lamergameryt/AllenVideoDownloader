@@ -3,6 +3,7 @@ from tkinter import messagebox
 import os
 import sys
 from ctypes import windll
+# noinspection PyPackageRequirements
 from allen import AllenClient, AllenInvalidUsernamePassword
 import utils
 import asyncio

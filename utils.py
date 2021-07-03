@@ -6,6 +6,7 @@ from tkinter import *
 from tkinter import messagebox
 from tkinter.ttk import Progressbar
 import wget
+# noinspection PyPackageRequirements
 from allen import RecordedVideo
 
 seperator = os.sep
