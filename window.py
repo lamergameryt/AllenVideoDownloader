@@ -41,7 +41,7 @@ def login_btn_click(form_number, password, login_btn: Button):
     async_loop = asyncio.get_event_loop()
 
     if len(form_number.get()) == 0 or len(password.get()) == 0:
-        messagebox.showerror(title='Empty Fields', message='Please make sure you enter a form numner and a password.')
+        messagebox.showerror(title='Empty Fields', message='Please make sure you enter a form number and a password.')
         return
 
     try:
