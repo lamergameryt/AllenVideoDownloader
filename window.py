@@ -75,6 +75,7 @@ WS_EX_TOOLWINDOW = 0x00000080
 
 lastClickX = 0
 lastClickY = 0
+inside = True
 
 
 def set_appwindow(main_window):
@@ -95,14 +96,40 @@ def set_appwindow(main_window):
 
 
 def save_last_click_pos(event):
+    """
+    Save the last left mouse button click co-ordinates for usage in the dragging event.
+
+    :param event: The tkinter left mouse button click event.
+    """
     global lastClickX, lastClickY
     lastClickX = event.x
     lastClickY = event.y
 
 
 def dragging(event):
+    """
+    Makes the window moveable while still being borderless.
+
+    :param event: The tkinter left mouse button motion event.
+    """
+    # Retrieve the y co-ordinate with respect to the window.
+    y_cord = window.winfo_pointery() - window.winfo_rooty()
+
+    if not inside or (lastClickY > 12 or y_cord > 14):
+        return
+
     x, y = event.x - lastClickX + window.winfo_x(), event.y - lastClickY + window.winfo_y()
     window.geometry("+%s+%s" % (x, y))
+
+
+def inside_window(event):
+    global inside
+    inside = True
+
+
+def outside_window(event):
+    global inside
+    inside = False
 
 
 def main():
@@ -114,6 +141,8 @@ def main():
     window.title('Allen Video Downloader')
     window.bind('<Button-1>', save_last_click_pos)
     window.bind('<B1-Motion>', dragging)
+    window.bind("<Enter>", inside_window)
+    window.bind("<Leave>", outside_window)
     window.geometry("983x526+%d+%d" % (500, 300))
     window.configure(bg="#ffffff")
     window.iconbitmap('assets/logo.ico')
@@ -125,7 +154,7 @@ def main():
     """
     Background colour creation and insertion.
     """
-    # Creates the blue and white sections seen in the GUI.
+    # Creates the purple and white sections seen in the GUI.
     canvas.create_rectangle(0, 0, 517, 526, fill="#b46db2", outline="")
     canvas.create_rectangle(517, 0, 983, 526, fill="#f3f3f3", outline="")
     canvas.create_rectangle(38, 121, 167, 126, fill="#ffffff", outline="")
