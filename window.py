@@ -75,6 +75,7 @@ WS_EX_TOOLWINDOW = 0x00000080
 
 lastClickX = 0
 lastClickY = 0
+inside = True
 
 
 def set_appwindow(main_window):
@@ -114,11 +115,21 @@ def dragging(event):
     # Retrieve the y co-ordinate with respect to the window.
     y_cord = window.winfo_pointery() - window.winfo_rooty()
 
-    if lastClickY > 12 or y_cord > 12:
+    if not inside or (lastClickY > 12 or y_cord > 14):
         return
 
     x, y = event.x - lastClickX + window.winfo_x(), event.y - lastClickY + window.winfo_y()
     window.geometry("+%s+%s" % (x, y))
+
+
+def inside_window(event):
+    global inside
+    inside = True
+
+
+def outside_window(event):
+    global inside
+    inside = False
 
 
 def main():
@@ -130,6 +141,8 @@ def main():
     window.title('Allen Video Downloader')
     window.bind('<Button-1>', save_last_click_pos)
     window.bind('<B1-Motion>', dragging)
+    window.bind("<Enter>", inside_window)
+    window.bind("<Leave>", outside_window)
     window.geometry("983x526+%d+%d" % (500, 300))
     window.configure(bg="#ffffff")
     window.iconbitmap('assets/logo.ico')
