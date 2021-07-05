@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Releases
+    url: https://github.com/lamergameryt/AllenVideoDownloader/releases/latest
+    about: You can find the latest releases here on GitHub.
