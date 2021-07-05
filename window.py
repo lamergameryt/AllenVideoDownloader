@@ -101,6 +101,10 @@ def save_last_click_pos(event):
 
 
 def dragging(event):
+    y_cord = window.winfo_pointery() - window.winfo_rooty()
+    if lastClickY > 25 or y_cord > 25:
+        return
+
     x, y = event.x - lastClickX + window.winfo_x(), event.y - lastClickY + window.winfo_y()
     window.geometry("+%s+%s" % (x, y))
 
@@ -125,7 +129,7 @@ def main():
     """
     Background colour creation and insertion.
     """
-    # Creates the blue and white sections seen in the GUI.
+    # Creates the purple and white sections seen in the GUI.
     canvas.create_rectangle(0, 0, 517, 526, fill="#b46db2", outline="")
     canvas.create_rectangle(517, 0, 983, 526, fill="#f3f3f3", outline="")
     canvas.create_rectangle(38, 121, 167, 126, fill="#ffffff", outline="")
