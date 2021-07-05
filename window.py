@@ -95,14 +95,26 @@ def set_appwindow(main_window):
 
 
 def save_last_click_pos(event):
+    """
+    Save the last left mouse button click co-ordinates for usage in the dragging event.
+
+    :param event: The tkinter left mouse button click event.
+    """
     global lastClickX, lastClickY
     lastClickX = event.x
     lastClickY = event.y
 
 
 def dragging(event):
+    """
+    Makes the window moveable while still being borderless.
+
+    :param event: The tkinter left mouse button motion event.
+    """
+    # Retrieve the y co-ordinate with respect to the window.
     y_cord = window.winfo_pointery() - window.winfo_rooty()
-    if lastClickY > 25 or y_cord > 25:
+
+    if lastClickY > 12 or y_cord > 12:
         return
 
     x, y = event.x - lastClickX + window.winfo_x(), event.y - lastClickY + window.winfo_y()
